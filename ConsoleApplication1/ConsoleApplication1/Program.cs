@@ -13,6 +13,7 @@ namespace ConsoleApplication1
             int number = 5;
             string text = "something";
             Console.WriteLine("{0} {1}", number, text);
+
             Console.ReadLine();
         }
     }
