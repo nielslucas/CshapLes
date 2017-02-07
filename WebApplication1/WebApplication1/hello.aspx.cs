@@ -9,9 +9,13 @@ namespace WebApplication1
 {
     public partial class hello : System.Web.UI.Page
     {
+        public string text;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            for (int i = 0; i < 10; i++)
+            {
+                text += "Hello World <br>";
+            } 
         }
     }
 }
