@@ -6,44 +6,73 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication_2
 {
-    class GradeBook
+    class Account
     {
-        private string _courseName;//name for this GradeBook
+        private decimal _balance;
 
-        public string CourseName
+        //constructer
+        public Account(decimal initialBalance)
+        {
+            Balance = initialBalance;
+        }// end constructer
+
+        public void Credit(decimal amount)
+        {
+            Balance = Balance + amount;
+        }
+
+        public decimal Balance
         {
             get
             {
-                return _courseName;
+                return _balance;
             }
             set
             {
-                _courseName = value;
+                if (value >= 0)
+                    _balance = value; 
             }
-        }//end CourseName
-
-        public void DisplayMessage()
-        {
-            Console.WriteLine("Welcome to the GradeBook of {0}", CourseName);
         }
+    }//end Account
 
-    }//end GradeBook
-
-    class GradeBookTest
+    class AccountTest
     {
         public static void Main(string[] args)
         {
-            GradeBook myGradeBook = new GradeBook();
+            Account account1 = new Account(50.00m);
+            Account account2 = new Account(-7.53m);
 
-            Console.WriteLine("Gradebook name is: {0}", myGradeBook.CourseName);
+            //account 1 balance
+            Console.WriteLine("account1 balance:{0}", account1.Balance);
+            //account 2 balance
+            Console.WriteLine("account2 balance:{0}", account2.Balance);
 
-            Console.WriteLine("Please enter the course name:");//text
-            myGradeBook.CourseName = Console.ReadLine(); // set CourseName
-            Console.WriteLine();
+            decimal depositAmount;
 
-            myGradeBook.DisplayMessage();//display the message from the instance we created.
+            //deposite for account 1
+            Console.Write("Enter deposit amount for account1: ");
+            depositAmount = Convert.ToDecimal(Console.ReadLine());
+            Console.WriteLine("adding to account1 balance\n", depositAmount);
+            account1.Credit(depositAmount);
+
+            //account 1 balance
+            Console.WriteLine("account1 balance:{0}", account1.Balance);
+            //account 2 balance
+            Console.WriteLine("account2 balance:{0}", account2.Balance);
+
+            //deposite for account 2
+            Console.Write("Enter deposit amount for account2: ");
+            depositAmount = Convert.ToDecimal(Console.ReadLine());
+            Console.WriteLine("adding to account1 balance\n", depositAmount);
+            account2.Credit(depositAmount);
+
+            //account 1 balance
+            Console.WriteLine("account1 balance:{0}", account1.Balance);
+            //account 2 balance
+            Console.WriteLine("account2 balance:{0}", account2.Balance);
+
             Console.ReadLine();
-
         }
     }
+
 }//end namespace
