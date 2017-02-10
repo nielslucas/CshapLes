@@ -8,18 +8,26 @@ namespace ConsoleApplication_2
 {
     class GradeBook
     {
-        //static void Main(string[] args)
-        //{
-        //    GradeBook myGradeBook = new GradeBook();
-        //    myGradeBook.DisplayMessage("Niels");
-        //}
+        private string _courseName;//name for this GradeBook
 
-        public void DisplayMessage(string courseName)
+        public string CourseName
         {
-            Console.WriteLine("Welcome to the Grade Book for {0}!", courseName);
-            Console.ReadLine();
+            get
+            {
+                return _courseName;
+            }
+            set
+            {
+                _courseName = value;
+            }
+        }//end CourseName
+
+        public void DisplayMessage()
+        {
+            Console.WriteLine("Welcome to the GradeBook of {0}", CourseName);
         }
-    }
+
+    }//end GradeBook
 
     class GradeBookTest
     {
@@ -27,11 +35,15 @@ namespace ConsoleApplication_2
         {
             GradeBook myGradeBook = new GradeBook();
 
-            Console.WriteLine("Please enter your gradebook name");
-            string nameOfCourse = Console.ReadLine();
+            Console.WriteLine("Gradebook name is: {0}", myGradeBook.CourseName);
+
+            Console.WriteLine("Please enter the course name:");//text
+            myGradeBook.CourseName = Console.ReadLine(); // set CourseName
             Console.WriteLine();
 
-            myGradeBook.DisplayMessage(nameOfCourse);
+            myGradeBook.DisplayMessage();//display the message from the instance we created.
+            Console.ReadLine();
+
         }
     }
-}
+}//end namespace
