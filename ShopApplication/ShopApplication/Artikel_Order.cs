@@ -17,6 +17,7 @@ namespace ShopApplication
         public int ArtikelID { get; set; }
         public int OrderID { get; set; }
         public Nullable<int> Amount { get; set; }
+        public Nullable<decimal> Price { get; set; }
     
         public virtual Artikel Artikel { get; set; }
         public virtual Order Order { get; set; }

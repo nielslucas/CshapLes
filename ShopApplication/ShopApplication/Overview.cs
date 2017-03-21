@@ -14,8 +14,6 @@ namespace ShopApplication
     public partial class Overview : Form
     {
 
-        public ShopEntities db = new ShopEntities();
-
         public Overview()
         {
             InitializeComponent();
@@ -39,7 +37,7 @@ namespace ShopApplication
             lvArtikels.Items.Clear();
 
             //fill list
-            foreach (Artikel artikel in db.Artikels)
+            foreach (Artikel artikel in Program.db.Artikels)
             {
                 string[] TempArtikel = {
                     artikel.Name,
@@ -63,15 +61,15 @@ namespace ShopApplication
         {
             if(lvArtikels.SelectedItems.Count < 1)
             {
-                ArtikelCreateAndEdit form = new ArtikelCreateAndEdit(db);
+                ArtikelForm form = new ArtikelForm();
                 form.Show();
             } else
             {
                 int artikelID = int.Parse(lvArtikels.SelectedItems[0].Name);
 
-                Artikel artikel = db.Artikels.Find(artikelID);
+                Artikel artikel = Program.db.Artikels.Find(artikelID);
 
-                ArtikelCreateAndEdit form = new ArtikelCreateAndEdit(db, artikel, artikelID);
+                ArtikelForm form = new ArtikelForm(artikel);
                 form.Show();
             }
         }
@@ -79,6 +77,11 @@ namespace ShopApplication
         private void Overview_Activated(object sender, EventArgs e)
         {
             artikelsList();
+        }
+
+        private void buttonCategorie_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

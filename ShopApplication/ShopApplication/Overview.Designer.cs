@@ -35,6 +35,7 @@
             this.Stock = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gbAdmin = new System.Windows.Forms.GroupBox();
             this.addArtikel = new System.Windows.Forms.Button();
+            this.buttonCategorie = new System.Windows.Forms.Button();
             this.gbAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +73,7 @@
             // 
             // gbAdmin
             // 
+            this.gbAdmin.Controls.Add(this.buttonCategorie);
             this.gbAdmin.Controls.Add(this.addArtikel);
             this.gbAdmin.Location = new System.Drawing.Point(955, 13);
             this.gbAdmin.Name = "gbAdmin";
@@ -86,9 +88,19 @@
             this.addArtikel.Name = "addArtikel";
             this.addArtikel.Size = new System.Drawing.Size(75, 23);
             this.addArtikel.TabIndex = 0;
-            this.addArtikel.Text = "Add Artikel";
+            this.addArtikel.Text = "Artikel";
             this.addArtikel.UseVisualStyleBackColor = true;
             this.addArtikel.Click += new System.EventHandler(this.addArtikel_Click);
+            // 
+            // buttonCategorie
+            // 
+            this.buttonCategorie.Location = new System.Drawing.Point(7, 50);
+            this.buttonCategorie.Name = "buttonCategorie";
+            this.buttonCategorie.Size = new System.Drawing.Size(75, 23);
+            this.buttonCategorie.TabIndex = 1;
+            this.buttonCategorie.Text = "Categorie";
+            this.buttonCategorie.UseVisualStyleBackColor = true;
+            this.buttonCategorie.Click += new System.EventHandler(this.buttonCategorie_Click);
             // 
             // Overview
             // 
@@ -115,6 +127,7 @@
         private System.Windows.Forms.ColumnHeader Stock;
         private System.Windows.Forms.GroupBox gbAdmin;
         private System.Windows.Forms.Button addArtikel;
+        private System.Windows.Forms.Button buttonCategorie;
     }
 }
 

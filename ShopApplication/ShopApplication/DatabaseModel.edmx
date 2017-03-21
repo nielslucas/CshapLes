@@ -21,6 +21,7 @@
           <Property Name="ArtikelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="Amount" Type="int" />
+          <Property Name="Price" Type="money" />
         </EntityType>
         <EntityType Name="Artikel_Supplier">
           <Key>
@@ -37,7 +38,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="text" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="money" />
           <Property Name="Storage" Type="int" />
           <Property Name="Img" Type="text" />
         </EntityType>
@@ -224,6 +225,7 @@
           <Property Name="Amount" Type="Int32" />
           <NavigationProperty Name="Artikel" Relationship="Self.Artikel_To_Order" FromRole="Artikel_Order" ToRole="Artikels" />
           <NavigationProperty Name="Order" Relationship="Self.Order_To_Artikel" FromRole="Artikel_Order" ToRole="Orders" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="Artikel">
           <Key>
@@ -232,7 +234,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Storage" Type="Int32" />
           <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Artikel_Order" Relationship="Self.Artikel_To_Order" FromRole="Artikels" ToRole="Artikel_Order" />
@@ -372,6 +374,7 @@
           <EntitySetMapping Name="Artikel_Order">
             <EntityTypeMapping TypeName="ShopModel.Artikel_Order">
               <MappingFragment StoreEntitySet="Artikel_Order">
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />

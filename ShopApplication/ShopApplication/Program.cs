@@ -8,6 +8,9 @@ namespace ShopApplication
 {
     static class Program
     {
+
+        public static ShopEntities db = new ShopEntities();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

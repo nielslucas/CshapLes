@@ -10,24 +10,21 @@ using System.Windows.Forms;
 
 namespace ShopApplication
 {
-    public partial class ArtikelCreateAndEdit : Form
+    public partial class ArtikelForm : Form
     {
-        ShopEntities db;
         Artikel artikel;
         int artikelID;
 
-        public ArtikelCreateAndEdit(ShopEntities db)
+        public ArtikelForm()
         {
             InitializeComponent();
-            this.db = db;
         }
 
-        public ArtikelCreateAndEdit(ShopEntities db, Artikel artikel, int artikelID)
+        public ArtikelForm(Artikel artikel)
         {
             InitializeComponent();
-            this.db = db;
             this.artikel = artikel;
-            this.artikelID = artikelID;
+            this.artikelID = artikel.ID;
 
             tbArticalName.Text = artikel.Name;
             tbDescription.Text = artikel.Description;
@@ -45,18 +42,17 @@ namespace ShopApplication
                     decimal.Parse(tbPrice.Text),
                     int.Parse(tbStock.Text)
                 );
-                db.Artikels.Add(tempArtikel);
+                Program.db.Artikels.Add(tempArtikel);
             } else
             {
-                Artikel artikel = db.Artikels.Find(artikelID);
+                //Artikel artikel = db.Artikels.Find(artikelID);
                 artikel.Name = tbArticalName.Text;
                 artikel.Description = tbDescription.Text;
                 artikel.Price = decimal.Parse(tbPrice.Text);
                 artikel.Storage = int.Parse(tbStock.Text);
-                db.SaveChanges();
             }
             //Save database
-            db.SaveChanges();
+            Program.db.SaveChanges();
 
             Close();
 

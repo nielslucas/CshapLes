@@ -1,6 +1,6 @@
 ﻿namespace ShopApplication
 {
-    partial class ArtikelCreateAndEdit
+    partial class ArtikelForm
     {
         /// <summary>
         /// Required designer variable.
