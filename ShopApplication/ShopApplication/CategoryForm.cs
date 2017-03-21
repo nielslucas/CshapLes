@@ -15,6 +15,8 @@ namespace ShopApplication
         public CategoryForm()
         {
             InitializeComponent();
+            //
+            fillListViewCategory();
         }
 
         private void btSave_Click(object sender, EventArgs e)
@@ -33,6 +35,29 @@ namespace ShopApplication
 
             //Clear textbox
             tbName.Clear();
+        }
+
+        private void fillListViewCategory()
+        {
+            //Clear list
+            lvCategory.Items.Clear();
+
+            foreach(Category category in Program.db.Categories)
+            {
+                //Create string array
+                string[] Category = {
+                    category.Name };
+
+                //Create ListViewItem
+                ListViewItem item = new ListViewItem(Category);
+
+                //Set key value
+                lvCategory.Name = category.ID.ToString();
+
+                //Add item to ListView
+                lvCategory.Items.Add(item);
+            }
+
         }
     }
 }
