@@ -81,7 +81,8 @@ namespace ShopApplication
 
         private void buttonCategorie_Click(object sender, EventArgs e)
         {
-
+            CategoryForm form = new CategoryForm();
+            form.Show();
         }
     }
 }
