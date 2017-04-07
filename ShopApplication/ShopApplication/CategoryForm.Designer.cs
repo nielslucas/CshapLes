@@ -33,7 +33,6 @@
             this.btSave = new System.Windows.Forms.Button();
             this.lvCategory = new System.Windows.Forms.ListView();
             this.NameBlub = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lbName
@@ -65,7 +64,6 @@
             // lvCategory
             // 
             this.lvCategory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ID,
             this.NameBlub});
             this.lvCategory.Location = new System.Drawing.Point(131, 30);
             this.lvCategory.Name = "lvCategory";
@@ -73,17 +71,12 @@
             this.lvCategory.TabIndex = 3;
             this.lvCategory.UseCompatibleStateImageBehavior = false;
             this.lvCategory.View = System.Windows.Forms.View.Details;
+            this.lvCategory.DoubleClick += new System.EventHandler(this.lvCategory_DoubleClick);
             // 
             // NameBlub
             // 
-            this.NameBlub.DisplayIndex = 0;
             this.NameBlub.Text = "Name";
             this.NameBlub.Width = 117;
-            // 
-            // ID
-            // 
-            this.ID.DisplayIndex = 1;
-            this.ID.Text = "ID";
             // 
             // CategoryForm
             // 
@@ -108,6 +101,5 @@
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.ListView lvCategory;
         private System.Windows.Forms.ColumnHeader NameBlub;
-        private System.Windows.Forms.ColumnHeader ID;
     }
 }

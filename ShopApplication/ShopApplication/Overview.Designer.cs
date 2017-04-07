@@ -34,8 +34,9 @@
             this.Price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Stock = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gbAdmin = new System.Windows.Forms.GroupBox();
-            this.addArtikel = new System.Windows.Forms.Button();
+            this.buttonSupplier = new System.Windows.Forms.Button();
             this.buttonCategorie = new System.Windows.Forms.Button();
+            this.addArtikel = new System.Windows.Forms.Button();
             this.gbAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,24 +74,25 @@
             // 
             // gbAdmin
             // 
+            this.gbAdmin.Controls.Add(this.buttonSupplier);
             this.gbAdmin.Controls.Add(this.buttonCategorie);
             this.gbAdmin.Controls.Add(this.addArtikel);
             this.gbAdmin.Location = new System.Drawing.Point(955, 13);
             this.gbAdmin.Name = "gbAdmin";
-            this.gbAdmin.Size = new System.Drawing.Size(200, 100);
+            this.gbAdmin.Size = new System.Drawing.Size(200, 141);
             this.gbAdmin.TabIndex = 1;
             this.gbAdmin.TabStop = false;
             this.gbAdmin.Text = "Admin";
             // 
-            // addArtikel
+            // buttonSupplier
             // 
-            this.addArtikel.Location = new System.Drawing.Point(7, 20);
-            this.addArtikel.Name = "addArtikel";
-            this.addArtikel.Size = new System.Drawing.Size(75, 23);
-            this.addArtikel.TabIndex = 0;
-            this.addArtikel.Text = "Artikel";
-            this.addArtikel.UseVisualStyleBackColor = true;
-            this.addArtikel.Click += new System.EventHandler(this.addArtikel_Click);
+            this.buttonSupplier.Location = new System.Drawing.Point(7, 79);
+            this.buttonSupplier.Name = "buttonSupplier";
+            this.buttonSupplier.Size = new System.Drawing.Size(75, 23);
+            this.buttonSupplier.TabIndex = 2;
+            this.buttonSupplier.Text = "Supplier";
+            this.buttonSupplier.UseVisualStyleBackColor = true;
+            this.buttonSupplier.Click += new System.EventHandler(this.buttonSupplier_Click);
             // 
             // buttonCategorie
             // 
@@ -101,6 +103,16 @@
             this.buttonCategorie.Text = "Categorie";
             this.buttonCategorie.UseVisualStyleBackColor = true;
             this.buttonCategorie.Click += new System.EventHandler(this.buttonCategorie_Click);
+            // 
+            // addArtikel
+            // 
+            this.addArtikel.Location = new System.Drawing.Point(7, 20);
+            this.addArtikel.Name = "addArtikel";
+            this.addArtikel.Size = new System.Drawing.Size(75, 23);
+            this.addArtikel.TabIndex = 0;
+            this.addArtikel.Text = "Artikel";
+            this.addArtikel.UseVisualStyleBackColor = true;
+            this.addArtikel.Click += new System.EventHandler(this.addArtikel_Click);
             // 
             // Overview
             // 
@@ -128,6 +140,7 @@
         private System.Windows.Forms.GroupBox gbAdmin;
         private System.Windows.Forms.Button addArtikel;
         private System.Windows.Forms.Button buttonCategorie;
+        private System.Windows.Forms.Button buttonSupplier;
     }
 }
 

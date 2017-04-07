@@ -37,6 +37,8 @@
             this.lbStock = new System.Windows.Forms.Label();
             this.tbStock = new System.Windows.Forms.TextBox();
             this.CreateArtikel = new System.Windows.Forms.Button();
+            this.lbCategory = new System.Windows.Forms.Label();
+            this.cbCategory = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lbName
@@ -105,7 +107,7 @@
             // 
             // CreateArtikel
             // 
-            this.CreateArtikel.Location = new System.Drawing.Point(13, 184);
+            this.CreateArtikel.Location = new System.Drawing.Point(12, 237);
             this.CreateArtikel.Name = "CreateArtikel";
             this.CreateArtikel.Size = new System.Drawing.Size(75, 23);
             this.CreateArtikel.TabIndex = 8;
@@ -113,11 +115,31 @@
             this.CreateArtikel.UseVisualStyleBackColor = true;
             this.CreateArtikel.Click += new System.EventHandler(this.CreateArtikel_Click);
             // 
-            // ArtikelCreateAndEdit
+            // lbCategory
+            // 
+            this.lbCategory.AutoSize = true;
+            this.lbCategory.Location = new System.Drawing.Point(16, 184);
+            this.lbCategory.Name = "lbCategory";
+            this.lbCategory.Size = new System.Drawing.Size(49, 13);
+            this.lbCategory.TabIndex = 9;
+            this.lbCategory.Text = "Category";
+            // 
+            // cbCategory
+            // 
+            this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategory.FormattingEnabled = true;
+            this.cbCategory.Location = new System.Drawing.Point(13, 200);
+            this.cbCategory.Name = "cbCategory";
+            this.cbCategory.Size = new System.Drawing.Size(121, 21);
+            this.cbCategory.TabIndex = 10;
+            // 
+            // ArtikelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 300);
+            this.Controls.Add(this.cbCategory);
+            this.Controls.Add(this.lbCategory);
             this.Controls.Add(this.CreateArtikel);
             this.Controls.Add(this.tbStock);
             this.Controls.Add(this.lbStock);
@@ -127,7 +149,7 @@
             this.Controls.Add(this.lbDescription);
             this.Controls.Add(this.tbArticalName);
             this.Controls.Add(this.lbName);
-            this.Name = "ArtikelCreateAndEdit";
+            this.Name = "ArtikelForm";
             this.Text = "ArtikelCreate";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -145,5 +167,7 @@
         private System.Windows.Forms.Label lbStock;
         private System.Windows.Forms.TextBox tbStock;
         private System.Windows.Forms.Button CreateArtikel;
+        private System.Windows.Forms.Label lbCategory;
+        private System.Windows.Forms.ComboBox cbCategory;
     }
 }

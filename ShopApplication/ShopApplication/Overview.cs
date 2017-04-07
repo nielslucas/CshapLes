@@ -84,5 +84,11 @@ namespace ShopApplication
             CategoryForm form = new CategoryForm();
             form.Show();
         }
+
+        private void buttonSupplier_Click(object sender, EventArgs e)
+        {
+            SupplierForm form = new SupplierForm();
+            form.Show();
+        }
     }
 }
