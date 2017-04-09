@@ -19,6 +19,8 @@ namespace ShopApplication
             InitializeComponent();
 
             artikelsList();
+
+            lvArtikels.FullRowSelect = true;
         }
 
         private void Overview_Load(object sender, EventArgs e)
@@ -88,6 +90,12 @@ namespace ShopApplication
         private void buttonSupplier_Click(object sender, EventArgs e)
         {
             SupplierForm form = new SupplierForm();
+            form.Show();
+        }
+
+        private void buttonCustomers_Click(object sender, EventArgs e)
+        {
+            CustomerForm form = new CustomerForm();
             form.Show();
         }
     }

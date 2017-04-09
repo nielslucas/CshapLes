@@ -19,6 +19,8 @@ namespace ShopApplication
             InitializeComponent();
             //
             fillListViewCategory();
+
+            lvCategory.FullRowSelect = true;
         }
 
         private void btSave_Click(object sender, EventArgs e)

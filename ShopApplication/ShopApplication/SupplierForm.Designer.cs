@@ -30,7 +30,7 @@
         {
             this.lbSupllierName = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvSupllier = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -51,16 +51,17 @@
             this.tbName.Size = new System.Drawing.Size(100, 20);
             this.tbName.TabIndex = 1;
             // 
-            // listView1
+            // lvSupllier
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvSupllier.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            this.listView1.Location = new System.Drawing.Point(183, 41);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 189);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lvSupllier.Location = new System.Drawing.Point(183, 41);
+            this.lvSupllier.Name = "lvSupllier";
+            this.lvSupllier.Size = new System.Drawing.Size(121, 189);
+            this.lvSupllier.TabIndex = 2;
+            this.lvSupllier.UseCompatibleStateImageBehavior = false;
+            this.lvSupllier.View = System.Windows.Forms.View.Details;
+            this.lvSupllier.DoubleClick += new System.EventHandler(this.lvSupllier_DoubleClick);
             // 
             // columnHeader1
             // 
@@ -83,7 +84,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 444);
             this.Controls.Add(this.btSave);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lvSupllier);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lbSupllierName);
             this.Name = "SupplierForm";
@@ -97,7 +98,7 @@
 
         private System.Windows.Forms.Label lbSupllierName;
         private System.Windows.Forms.TextBox tbName;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lvSupllier;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button btSave;
     }

@@ -37,6 +37,7 @@
             this.buttonSupplier = new System.Windows.Forms.Button();
             this.buttonCategorie = new System.Windows.Forms.Button();
             this.addArtikel = new System.Windows.Forms.Button();
+            this.buttonCustomers = new System.Windows.Forms.Button();
             this.gbAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,6 +75,7 @@
             // 
             // gbAdmin
             // 
+            this.gbAdmin.Controls.Add(this.buttonCustomers);
             this.gbAdmin.Controls.Add(this.buttonSupplier);
             this.gbAdmin.Controls.Add(this.buttonCategorie);
             this.gbAdmin.Controls.Add(this.addArtikel);
@@ -114,6 +116,16 @@
             this.addArtikel.UseVisualStyleBackColor = true;
             this.addArtikel.Click += new System.EventHandler(this.addArtikel_Click);
             // 
+            // buttonCustomers
+            // 
+            this.buttonCustomers.Location = new System.Drawing.Point(7, 108);
+            this.buttonCustomers.Name = "buttonCustomers";
+            this.buttonCustomers.Size = new System.Drawing.Size(75, 23);
+            this.buttonCustomers.TabIndex = 3;
+            this.buttonCustomers.Text = "Customers";
+            this.buttonCustomers.UseVisualStyleBackColor = true;
+            this.buttonCustomers.Click += new System.EventHandler(this.buttonCustomers_Click);
+            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,6 +153,7 @@
         private System.Windows.Forms.Button addArtikel;
         private System.Windows.Forms.Button buttonCategorie;
         private System.Windows.Forms.Button buttonSupplier;
+        private System.Windows.Forms.Button buttonCustomers;
     }
 }
 
