@@ -17,9 +17,9 @@ namespace ShopApplication
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Artikel()
         {
-            this.Artikel_Order = new HashSet<Artikel_Order>();
             this.Categories = new HashSet<Category>();
             this.Suppliers = new HashSet<Supplier>();
+            this.Artikel_Order = new HashSet<Artikel_Order>();
         }
     
         public int ID { get; set; }
@@ -30,10 +30,10 @@ namespace ShopApplication
         public string Img { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Artikel_Order> Artikel_Order { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supplier> Suppliers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Artikel_Order> Artikel_Order { get; set; }
     }
 }

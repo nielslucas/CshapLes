@@ -25,12 +25,12 @@ namespace ShopApplication
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Artikel_Order> Artikel_Order { get; set; }
         public virtual DbSet<Artikel> Artikels { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Artikel_Order> Artikel_Order { get; set; }
     }
 }

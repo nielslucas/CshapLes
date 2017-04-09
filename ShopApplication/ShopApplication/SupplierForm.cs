@@ -69,8 +69,6 @@ namespace ShopApplication
                 //Set key value
                 item.Name = supplier.ID.ToString();
 
-                //MessageBox.Show(item.Name);
-
                 //Add item to ListView
                 lvSupllier.Items.Add(item);
             }

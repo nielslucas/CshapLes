@@ -18,7 +18,7 @@
             <PropertyRef Name="ArtikelID" />
             <PropertyRef Name="OrderID" />
           </Key>
-          <Property Name="ArtikelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArtikelID" Type="int" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="Amount" Type="int" />
           <Property Name="Price" Type="money" />
@@ -215,18 +215,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Artikel_Order">
-          <Key>
-            <PropertyRef Name="ArtikelID" />
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="ArtikelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Int32" />
-          <NavigationProperty Name="Artikel" Relationship="Self.Artikel_To_Order" FromRole="Artikel_Order" ToRole="Artikels" />
-          <NavigationProperty Name="Order" Relationship="Self.Order_To_Artikel" FromRole="Artikel_Order" ToRole="Orders" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
         <EntityType Name="Artikel">
           <Key>
             <PropertyRef Name="ID" />
@@ -237,9 +225,9 @@
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Storage" Type="Int32" />
           <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Artikel_Order" Relationship="Self.Artikel_To_Order" FromRole="Artikels" ToRole="Artikel_Order" />
           <NavigationProperty Name="Categories" Relationship="Self.Artikel_Category" FromRole="Artikels" ToRole="Categories" />
           <NavigationProperty Name="Suppliers" Relationship="Self.Artikel_Supplier" FromRole="Artikels" ToRole="Suppliers" />
+          <NavigationProperty Name="Artikel_Order" Relationship="ShopModel.Artikel_To_Order" FromRole="Artikel" ToRole="Artikel_Order" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -271,8 +259,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerID" Type="Int32" />
-          <NavigationProperty Name="Artikel_Order" Relationship="Self.Order_To_Artikel" FromRole="Orders" ToRole="Artikel_Order" />
           <NavigationProperty Name="Customer" Relationship="Self.Customer_To_Order" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="Artikel_Order" Relationship="ShopModel.Order_To_Artikel" FromRole="Order" ToRole="Artikel_Order" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -292,30 +280,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="Artikel_To_Order">
-          <End Role="Artikels" Type="Self.Artikel" Multiplicity="1" />
-          <End Role="Artikel_Order" Type="Self.Artikel_Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Artikels">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Artikel_Order">
-              <PropertyRef Name="ArtikelID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Order_To_Artikel">
-          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
-          <End Role="Artikel_Order" Type="Self.Artikel_Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Artikel_Order">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Customer_To_Order">
           <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
@@ -337,21 +301,12 @@
           <End Role="Suppliers" Type="Self.Supplier" Multiplicity="*" />
         </Association>
         <EntityContainer Name="ShopEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Artikel_Order" EntityType="Self.Artikel_Order" />
           <EntitySet Name="Artikels" EntityType="Self.Artikel" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <AssociationSet Name="Artikel_To_Order" Association="Self.Artikel_To_Order">
-            <End Role="Artikels" EntitySet="Artikels" />
-            <End Role="Artikel_Order" EntitySet="Artikel_Order" />
-          </AssociationSet>
-          <AssociationSet Name="Order_To_Artikel" Association="Self.Order_To_Artikel">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Artikel_Order" EntitySet="Artikel_Order" />
-          </AssociationSet>
           <AssociationSet Name="Customer_To_Order" Association="Self.Customer_To_Order">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
@@ -364,23 +319,58 @@
             <End Role="Artikels" EntitySet="Artikels" />
             <End Role="Suppliers" EntitySet="Suppliers" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="Artikel_Order" EntityType="ShopModel.Artikel_Order" />
+          <AssociationSet Name="Artikel_To_Order" Association="ShopModel.Artikel_To_Order">
+            <End Role="Artikel" EntitySet="Artikels" />
+            <End Role="Artikel_Order" EntitySet="Artikel_Order" />
+          </AssociationSet>
+          <AssociationSet Name="Order_To_Artikel" Association="ShopModel.Order_To_Artikel">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Artikel_Order" EntitySet="Artikel_Order" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Artikel_Order">
+          <Key>
+            <PropertyRef Name="ArtikelID" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="ArtikelID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Artikel" Relationship="ShopModel.Artikel_To_Order" FromRole="Artikel_Order" ToRole="Artikel" />
+          <NavigationProperty Name="Order" Relationship="ShopModel.Order_To_Artikel" FromRole="Artikel_Order" ToRole="Order" />
+        </EntityType>
+        <Association Name="Artikel_To_Order">
+          <End Type="ShopModel.Artikel" Role="Artikel" Multiplicity="1" />
+          <End Type="ShopModel.Artikel_Order" Role="Artikel_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Order">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Order_To_Artikel">
+          <End Type="ShopModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="ShopModel.Artikel_Order" Role="Artikel_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Order">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ShopModelStoreContainer" CdmEntityContainer="ShopEntities">
-          <EntitySetMapping Name="Artikel_Order">
-            <EntityTypeMapping TypeName="ShopModel.Artikel_Order">
-              <MappingFragment StoreEntitySet="Artikel_Order">
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Artikels">
             <EntityTypeMapping TypeName="ShopModel.Artikel">
               <MappingFragment StoreEntitySet="Artikels">
@@ -460,6 +450,16 @@
               <ScalarProperty Name="ID" ColumnName="SupplierID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Artikel_Order">
+            <EntityTypeMapping TypeName="ShopModel.Artikel_Order">
+              <MappingFragment StoreEntitySet="Artikel_Order">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

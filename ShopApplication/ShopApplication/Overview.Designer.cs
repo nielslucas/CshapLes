@@ -33,18 +33,18 @@
             this.Description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Stock = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gbAdmin = new System.Windows.Forms.GroupBox();
+            this.buttonOrders = new System.Windows.Forms.Button();
             this.buttonCustomers = new System.Windows.Forms.Button();
             this.buttonSupplier = new System.Windows.Forms.Button();
             this.buttonCategorie = new System.Windows.Forms.Button();
             this.addArtikel = new System.Windows.Forms.Button();
-            this.cat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.buttonSearchCategory = new System.Windows.Forms.Button();
             this.buttonReset = new System.Windows.Forms.Button();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.buttonSearchTextbox = new System.Windows.Forms.Button();
-            this.buttonOrders = new System.Windows.Forms.Button();
             this.gbAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,6 +81,11 @@
             // 
             this.Stock.Text = "Stock";
             // 
+            // cat
+            // 
+            this.cat.Text = "Category";
+            this.cat.Width = 430;
+            // 
             // gbAdmin
             // 
             this.gbAdmin.Controls.Add(this.buttonOrders);
@@ -94,6 +99,16 @@
             this.gbAdmin.TabIndex = 1;
             this.gbAdmin.TabStop = false;
             this.gbAdmin.Text = "Admin";
+            // 
+            // buttonOrders
+            // 
+            this.buttonOrders.Location = new System.Drawing.Point(7, 135);
+            this.buttonOrders.Name = "buttonOrders";
+            this.buttonOrders.Size = new System.Drawing.Size(75, 23);
+            this.buttonOrders.TabIndex = 4;
+            this.buttonOrders.Text = "Orders";
+            this.buttonOrders.UseVisualStyleBackColor = true;
+            this.buttonOrders.Click += new System.EventHandler(this.buttonOrders_Click);
             // 
             // buttonCustomers
             // 
@@ -134,11 +149,6 @@
             this.addArtikel.Text = "Artikel";
             this.addArtikel.UseVisualStyleBackColor = true;
             this.addArtikel.Click += new System.EventHandler(this.addArtikel_Click);
-            // 
-            // cat
-            // 
-            this.cat.Text = "Category";
-            this.cat.Width = 430;
             // 
             // cbCategory
             // 
@@ -185,16 +195,6 @@
             this.buttonSearchTextbox.Text = "Search Text";
             this.buttonSearchTextbox.UseVisualStyleBackColor = true;
             this.buttonSearchTextbox.Click += new System.EventHandler(this.buttonSearchTextbox_Click);
-            // 
-            // buttonOrders
-            // 
-            this.buttonOrders.Location = new System.Drawing.Point(7, 135);
-            this.buttonOrders.Name = "buttonOrders";
-            this.buttonOrders.Size = new System.Drawing.Size(75, 23);
-            this.buttonOrders.TabIndex = 4;
-            this.buttonOrders.Text = "Orders";
-            this.buttonOrders.UseVisualStyleBackColor = true;
-            this.buttonOrders.Click += new System.EventHandler(this.buttonOrders_Click);
             // 
             // Overview
             // 
