@@ -34,10 +34,17 @@
             this.Price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Stock = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gbAdmin = new System.Windows.Forms.GroupBox();
+            this.buttonCustomers = new System.Windows.Forms.Button();
             this.buttonSupplier = new System.Windows.Forms.Button();
             this.buttonCategorie = new System.Windows.Forms.Button();
             this.addArtikel = new System.Windows.Forms.Button();
-            this.buttonCustomers = new System.Windows.Forms.Button();
+            this.cat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cbCategory = new System.Windows.Forms.ComboBox();
+            this.buttonSearchCategory = new System.Windows.Forms.Button();
+            this.buttonReset = new System.Windows.Forms.Button();
+            this.tbSearch = new System.Windows.Forms.TextBox();
+            this.buttonSearchTextbox = new System.Windows.Forms.Button();
+            this.buttonOrders = new System.Windows.Forms.Button();
             this.gbAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,10 +54,11 @@
             this.Title,
             this.Description,
             this.Price,
-            this.Stock});
-            this.lvArtikels.Location = new System.Drawing.Point(13, 13);
+            this.Stock,
+            this.cat});
+            this.lvArtikels.Location = new System.Drawing.Point(12, 33);
             this.lvArtikels.Name = "lvArtikels";
-            this.lvArtikels.Size = new System.Drawing.Size(434, 451);
+            this.lvArtikels.Size = new System.Drawing.Size(936, 451);
             this.lvArtikels.TabIndex = 0;
             this.lvArtikels.UseCompatibleStateImageBehavior = false;
             this.lvArtikels.View = System.Windows.Forms.View.Details;
@@ -75,16 +83,27 @@
             // 
             // gbAdmin
             // 
+            this.gbAdmin.Controls.Add(this.buttonOrders);
             this.gbAdmin.Controls.Add(this.buttonCustomers);
             this.gbAdmin.Controls.Add(this.buttonSupplier);
             this.gbAdmin.Controls.Add(this.buttonCategorie);
             this.gbAdmin.Controls.Add(this.addArtikel);
             this.gbAdmin.Location = new System.Drawing.Point(955, 13);
             this.gbAdmin.Name = "gbAdmin";
-            this.gbAdmin.Size = new System.Drawing.Size(200, 141);
+            this.gbAdmin.Size = new System.Drawing.Size(200, 166);
             this.gbAdmin.TabIndex = 1;
             this.gbAdmin.TabStop = false;
             this.gbAdmin.Text = "Admin";
+            // 
+            // buttonCustomers
+            // 
+            this.buttonCustomers.Location = new System.Drawing.Point(7, 108);
+            this.buttonCustomers.Name = "buttonCustomers";
+            this.buttonCustomers.Size = new System.Drawing.Size(75, 23);
+            this.buttonCustomers.TabIndex = 3;
+            this.buttonCustomers.Text = "Customers";
+            this.buttonCustomers.UseVisualStyleBackColor = true;
+            this.buttonCustomers.Click += new System.EventHandler(this.buttonCustomers_Click);
             // 
             // buttonSupplier
             // 
@@ -116,21 +135,77 @@
             this.addArtikel.UseVisualStyleBackColor = true;
             this.addArtikel.Click += new System.EventHandler(this.addArtikel_Click);
             // 
-            // buttonCustomers
+            // cat
             // 
-            this.buttonCustomers.Location = new System.Drawing.Point(7, 108);
-            this.buttonCustomers.Name = "buttonCustomers";
-            this.buttonCustomers.Size = new System.Drawing.Size(75, 23);
-            this.buttonCustomers.TabIndex = 3;
-            this.buttonCustomers.Text = "Customers";
-            this.buttonCustomers.UseVisualStyleBackColor = true;
-            this.buttonCustomers.Click += new System.EventHandler(this.buttonCustomers_Click);
+            this.cat.Text = "Category";
+            this.cat.Width = 430;
+            // 
+            // cbCategory
+            // 
+            this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategory.FormattingEnabled = true;
+            this.cbCategory.Location = new System.Drawing.Point(13, 6);
+            this.cbCategory.Name = "cbCategory";
+            this.cbCategory.Size = new System.Drawing.Size(121, 21);
+            this.cbCategory.TabIndex = 2;
+            // 
+            // buttonSearchCategory
+            // 
+            this.buttonSearchCategory.Location = new System.Drawing.Point(153, 6);
+            this.buttonSearchCategory.Name = "buttonSearchCategory";
+            this.buttonSearchCategory.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearchCategory.TabIndex = 3;
+            this.buttonSearchCategory.Text = "Search";
+            this.buttonSearchCategory.UseVisualStyleBackColor = true;
+            this.buttonSearchCategory.Click += new System.EventHandler(this.buttonSearchCategory_Click);
+            // 
+            // buttonReset
+            // 
+            this.buttonReset.Location = new System.Drawing.Point(235, 6);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.TabIndex = 4;
+            this.buttonReset.Text = "Reset";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Location = new System.Drawing.Point(317, 6);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(100, 20);
+            this.tbSearch.TabIndex = 5;
+            // 
+            // buttonSearchTextbox
+            // 
+            this.buttonSearchTextbox.Location = new System.Drawing.Point(424, 6);
+            this.buttonSearchTextbox.Name = "buttonSearchTextbox";
+            this.buttonSearchTextbox.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearchTextbox.TabIndex = 6;
+            this.buttonSearchTextbox.Text = "Search Text";
+            this.buttonSearchTextbox.UseVisualStyleBackColor = true;
+            this.buttonSearchTextbox.Click += new System.EventHandler(this.buttonSearchTextbox_Click);
+            // 
+            // buttonOrders
+            // 
+            this.buttonOrders.Location = new System.Drawing.Point(7, 135);
+            this.buttonOrders.Name = "buttonOrders";
+            this.buttonOrders.Size = new System.Drawing.Size(75, 23);
+            this.buttonOrders.TabIndex = 4;
+            this.buttonOrders.Text = "Orders";
+            this.buttonOrders.UseVisualStyleBackColor = true;
+            this.buttonOrders.Click += new System.EventHandler(this.buttonOrders_Click);
             // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1167, 606);
+            this.Controls.Add(this.buttonSearchTextbox);
+            this.Controls.Add(this.tbSearch);
+            this.Controls.Add(this.buttonReset);
+            this.Controls.Add(this.buttonSearchCategory);
+            this.Controls.Add(this.cbCategory);
             this.Controls.Add(this.gbAdmin);
             this.Controls.Add(this.lvArtikels);
             this.Name = "Overview";
@@ -139,6 +214,7 @@
             this.Load += new System.EventHandler(this.Overview_Load);
             this.gbAdmin.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -154,6 +230,13 @@
         private System.Windows.Forms.Button buttonCategorie;
         private System.Windows.Forms.Button buttonSupplier;
         private System.Windows.Forms.Button buttonCustomers;
+        private System.Windows.Forms.ColumnHeader cat;
+        private System.Windows.Forms.ComboBox cbCategory;
+        private System.Windows.Forms.Button buttonSearchCategory;
+        private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.TextBox tbSearch;
+        private System.Windows.Forms.Button buttonSearchTextbox;
+        private System.Windows.Forms.Button buttonOrders;
     }
 }
 
