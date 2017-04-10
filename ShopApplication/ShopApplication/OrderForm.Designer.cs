@@ -45,6 +45,9 @@
             this.Descriptionnnn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Storage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ArtikelAmount = new System.Windows.Forms.TextBox();
+            this.lb = new System.Windows.Forms.Label();
+            this.buttonRemove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lvCustomers
@@ -166,11 +169,40 @@
             // 
             this.Storage.Text = "Storage";
             // 
+            // ArtikelAmount
+            // 
+            this.ArtikelAmount.Location = new System.Drawing.Point(271, 348);
+            this.ArtikelAmount.Name = "ArtikelAmount";
+            this.ArtikelAmount.Size = new System.Drawing.Size(100, 20);
+            this.ArtikelAmount.TabIndex = 6;
+            // 
+            // lb
+            // 
+            this.lb.AutoSize = true;
+            this.lb.Location = new System.Drawing.Point(377, 351);
+            this.lb.Name = "lb";
+            this.lb.Size = new System.Drawing.Size(43, 13);
+            this.lb.TabIndex = 7;
+            this.lb.Text = "Amount";
+            // 
+            // buttonRemove
+            // 
+            this.buttonRemove.Location = new System.Drawing.Point(344, 11);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(160, 23);
+            this.buttonRemove.TabIndex = 8;
+            this.buttonRemove.Text = "remove selected artikel";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
             // OrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1052, 628);
+            this.Controls.Add(this.buttonRemove);
+            this.Controls.Add(this.lb);
+            this.Controls.Add(this.ArtikelAmount);
             this.Controls.Add(this.lvArtikels);
             this.Controls.Add(this.labelOrderDetails);
             this.Controls.Add(this.lvOrderDetails);
@@ -203,5 +235,8 @@
         private System.Windows.Forms.ColumnHeader Descriptionnnn;
         private System.Windows.Forms.ColumnHeader Price;
         private System.Windows.Forms.ColumnHeader Storage;
+        private System.Windows.Forms.TextBox ArtikelAmount;
+        private System.Windows.Forms.Label lb;
+        private System.Windows.Forms.Button buttonRemove;
     }
 }
