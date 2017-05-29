@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artikel_Category">
+          <Key>
+            <PropertyRef Name="ArtikelID" />
+            <PropertyRef Name="CategorieID" />
+          </Key>
+          <Property Name="ArtikelID" Type="int" Nullable="false" />
+          <Property Name="CategorieID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Artikel_Order">
+          <Key>
+            <PropertyRef Name="ArtikelID" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="ArtikelID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Artikel_Supplier">
+          <Key>
+            <PropertyRef Name="ArtikelID" />
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="ArtikelID" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Artikels">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Storage" Type="int" />
+          <Property Name="Img" Type="text" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="HouseNumber" Type="int" />
+          <Property Name="Postcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Place" Type="nvarchar" MaxLength="50" />
+          <Property Name="Land" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="int" />
+          <Property Name="Birthday" Type="date" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="Artical_To_Categorie">
+          <End Role="Artikels" Type="Self.Artikels" Multiplicity="1" />
+          <End Role="Artikel_Category" Type="Self.Artikel_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikels">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Category">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Artical_To_Supplier">
+          <End Role="Artikels" Type="Self.Artikels" Multiplicity="1" />
+          <End Role="Artikel_Supplier" Type="Self.Artikel_Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikels">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Supplier">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Artikel_Category_To_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Artikel_Category" Type="Self.Artikel_Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Category">
+              <PropertyRef Name="CategorieID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Artikel_To_Order">
+          <End Role="Artikels" Type="Self.Artikels" Multiplicity="1" />
+          <End Role="Artikel_Order" Type="Self.Artikel_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikels">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Order">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Customer_To_Order">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Order_To_Artikel">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Artikel_Order" Type="Self.Artikel_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Order">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Supplier_To_Artikel">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+          <End Role="Artikel_Supplier" Type="Self.Artikel_Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Supplier">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopModelStoreContainer">
+          <EntitySet Name="Artikel_Category" EntityType="Self.Artikel_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Artikel_Order" EntityType="Self.Artikel_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Artikel_Supplier" EntityType="Self.Artikel_Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Artikels" EntityType="Self.Artikels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Artical_To_Categorie" Association="Self.Artical_To_Categorie">
+            <End Role="Artikels" EntitySet="Artikels" />
+            <End Role="Artikel_Category" EntitySet="Artikel_Category" />
+          </AssociationSet>
+          <AssociationSet Name="Artical_To_Supplier" Association="Self.Artical_To_Supplier">
+            <End Role="Artikels" EntitySet="Artikels" />
+            <End Role="Artikel_Supplier" EntitySet="Artikel_Supplier" />
+          </AssociationSet>
+          <AssociationSet Name="Artikel_Category_To_Categories" Association="Self.Artikel_Category_To_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Artikel_Category" EntitySet="Artikel_Category" />
+          </AssociationSet>
+          <AssociationSet Name="Artikel_To_Order" Association="Self.Artikel_To_Order">
+            <End Role="Artikels" EntitySet="Artikels" />
+            <End Role="Artikel_Order" EntitySet="Artikel_Order" />
+          </AssociationSet>
+          <AssociationSet Name="Customer_To_Order" Association="Self.Customer_To_Order">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Order_To_Artikel" Association="Self.Order_To_Artikel">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Artikel_Order" EntitySet="Artikel_Order" />
+          </AssociationSet>
+          <AssociationSet Name="Supplier_To_Artikel" Association="Self.Supplier_To_Artikel">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Artikel_Supplier" EntitySet="Artikel_Supplier" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Artikel_Order">
+          <Key>
+            <PropertyRef Name="ArtikelID" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="ArtikelID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Artikel" Relationship="Self.Artikel_To_Order" FromRole="Artikel_Order" ToRole="Artikels" />
+          <NavigationProperty Name="Order" Relationship="Self.Order_To_Artikel" FromRole="Artikel_Order" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Artikel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Storage" Type="Int32" />
+          <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Artikel_Order" Relationship="Self.Artikel_To_Order" FromRole="Artikels" ToRole="Artikel_Order" />
+          <NavigationProperty Name="Categories" Relationship="Self.Artikel_Category" FromRole="Artikels" ToRole="Categories" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.Artikel_Supplier" FromRole="Artikels" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Artikels" Relationship="Self.Artikel_Category" FromRole="Categories" ToRole="Artikels" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNumber" Type="Int32" />
+          <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Land" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="Int32" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Orders" Relationship="Self.Customer_To_Order" FromRole="Customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <NavigationProperty Name="Artikel_Order" Relationship="Self.Order_To_Artikel" FromRole="Orders" ToRole="Artikel_Order" />
+          <NavigationProperty Name="Customer" Relationship="Self.Customer_To_Order" FromRole="Orders" ToRole="Customers" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Artikels" Relationship="Self.Artikel_Supplier" FromRole="Suppliers" ToRole="Artikels" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="Artikel_To_Order">
+          <End Role="Artikels" Type="Self.Artikel" Multiplicity="1" />
+          <End Role="Artikel_Order" Type="Self.Artikel_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikels">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Order">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Order_To_Artikel">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="Artikel_Order" Type="Self.Artikel_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Artikel_Order">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Customer_To_Order">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Artikel_Category">
+          <End Role="Artikels" Type="Self.Artikel" Multiplicity="*" />
+          <End Role="Categories" Type="Self.Category" Multiplicity="*" />
+        </Association>
+        <Association Name="Artikel_Supplier">
+          <End Role="Artikels" Type="Self.Artikel" Multiplicity="*" />
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artikel_Order" EntityType="Self.Artikel_Order" />
+          <EntitySet Name="Artikels" EntityType="Self.Artikel" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="Artikel_To_Order" Association="Self.Artikel_To_Order">
+            <End Role="Artikels" EntitySet="Artikels" />
+            <End Role="Artikel_Order" EntitySet="Artikel_Order" />
+          </AssociationSet>
+          <AssociationSet Name="Order_To_Artikel" Association="Self.Order_To_Artikel">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Artikel_Order" EntitySet="Artikel_Order" />
+          </AssociationSet>
+          <AssociationSet Name="Customer_To_Order" Association="Self.Customer_To_Order">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Artikel_Category" Association="Self.Artikel_Category">
+            <End Role="Artikels" EntitySet="Artikels" />
+            <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="Artikel_Supplier" Association="Self.Artikel_Supplier">
+            <End Role="Artikels" EntitySet="Artikels" />
+            <End Role="Suppliers" EntitySet="Suppliers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShopModelStoreContainer" CdmEntityContainer="ShopEntities">
+          <EntitySetMapping Name="Artikel_Order">
+            <EntityTypeMapping TypeName="ShopModel.Artikel_Order">
+              <MappingFragment StoreEntitySet="Artikel_Order">
+                <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Artikels">
+            <EntityTypeMapping TypeName="ShopModel.Artikel">
+              <MappingFragment StoreEntitySet="Artikels">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Storage" ColumnName="Storage" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ShopModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ShopModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Land" ColumnName="Land" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ShopModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="ShopModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ShopModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Artikel_Category" TypeName="ShopModel.Artikel_Category" StoreEntitySet="Artikel_Category">
+            <EndProperty Name="Artikels">
+              <ScalarProperty Name="ID" ColumnName="ArtikelID" />
+            </EndProperty>
+            <EndProperty Name="Categories">
+              <ScalarProperty Name="ID" ColumnName="CategorieID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Artikel_Supplier" TypeName="ShopModel.Artikel_Supplier" StoreEntitySet="Artikel_Supplier">
+            <EndProperty Name="Artikels">
+              <ScalarProperty Name="ID" ColumnName="ArtikelID" />
+            </EndProperty>
+            <EndProperty Name="Suppliers">
+              <ScalarProperty Name="ID" ColumnName="SupplierID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
