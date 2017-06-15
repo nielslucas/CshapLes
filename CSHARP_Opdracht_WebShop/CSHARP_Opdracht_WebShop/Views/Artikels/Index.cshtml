@@ -1,0 +1,147 @@
+﻿@model IEnumerable<CSHARP_Opdracht_WebShop.Models.Artikels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category
+  <span class="caret"></span></button>
+  <ul id="categoryDropDown" class="dropdown-menu">
+  </ul>
+</div>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="Artikels" class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th onclick="ArtikelsOrderbyPrice();">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Storage)
+        </th>
+        <th>
+            <!-- space -->
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Storage)
+        </td>
+        <td>
+            <!-- space -->
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div id="bikes"></div>
+
+<button onclick="ArtikelsByCategory('Shirts');">Click ME</button>
+
+@section Scripts {
+<script type="text/javascript">
+
+    function FillCategoryDropDown() {
+        $.ajax({
+            url: 'http://localhost:49241/api/allCategories',
+            type: 'POST',
+            success: function (data) {
+                console.log(window.location.hostname);
+                console.log(data);
+
+                for (var i = 0; i < data.length; i++) {
+                    var bikeDiv = $('<li>');
+                    bikeDiv.html("<a href=# onclick=ArtikelsByCategory('"+data[i].Name+"');>" + data[i].Name) + "</a>";
+
+                    $('#categoryDropDown').append(bikeDiv);
+                }
+
+                $("#bikes").show('slow');
+            }
+        })
+    }
+
+    function ArtikelsOrderbyPrice() {
+        $.ajax({
+            url: 'http://localhost:49241/api/ArtikelsOrderByPrice',
+            type: 'POST',
+            success: function (data) {
+                console.log(window.location.hostname);
+                console.log(data);
+                $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th></th><th></th></tr>');
+
+                for(var i = 0; i < data.length; i++) {
+                    var bikeDiv = $('<tr>');
+                    bikeDiv.html('<td>' + data[i].Name);
+                    bikeDiv.append('<td>' + data[i].Description);
+                    bikeDiv.append('<td>' + data[i].Price);
+                    bikeDiv.append('<td>' + data[i].Storage);
+
+                    $('#Artikels').append(bikeDiv);
+                }
+
+                $("#bikes").show('slow');
+            }
+        })
+    }
+
+    function ArtikelsByCategory(category) {
+        $.ajax({
+            url: 'http://localhost:49241/api/ArtikelsByCategory',
+            type: 'POST',
+            data: { name: category },
+            success: function (data) {
+                console.log(window.location.hostname);
+                console.log(data);
+                $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th></th><th></th></tr>');
+
+                for (var i = 0; i < data.length; i++) {
+                    var bikeDiv = $('<tr>');
+                    bikeDiv.html('<td>' + data[i].Name);
+                    bikeDiv.append('<td>' + data[i].Description);
+                    bikeDiv.append('<td>' + data[i].Price);
+                    bikeDiv.append('<td>' + data[i].Storage);
+
+                    $('#Artikels').append(bikeDiv);
+                }
+
+                $("#bikes").show('slow');
+            }
+        })
+    }
+
+    $(function () {
+        FillCategoryDropDown();
+    });
+   
+</script>
+}
