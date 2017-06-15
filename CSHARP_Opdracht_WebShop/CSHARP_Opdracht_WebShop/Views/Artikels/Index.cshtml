@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    string cats;
 }
 
 <h2>Index</h2>
@@ -31,6 +32,9 @@
             @Html.DisplayNameFor(model => model.Storage)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Categories)
+        </th>
+        <th>
             <!-- space -->
         </th>
         <th></th>
@@ -51,12 +55,33 @@
             @Html.DisplayFor(modelItem => item.Storage)
         </td>
         <td>
+            @{
+                string category = "";
+            }
+
+            @foreach (var cat in item.Categories)
+            {
+                if (item.Categories.Count > 1)
+                {
+                    category = category + cat.Name + ", ";
+                }
+                else
+                {
+                    category = cat.Name;
+                }
+            }
+
+            @Html.DisplayFor(modelItem => category)
+
+        </td>
+        <td>
             <!-- space -->
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) |
+            <a href="#" onclick="orderArtikel(item.ID)">Bestel</a>
         </td>
     </tr>
 }
@@ -142,6 +167,6 @@
     $(function () {
         FillCategoryDropDown();
     });
-   
+
 </script>
 }
