@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CSHARP_Opdracht_WebShop.Models;
 using Newtonsoft.Json.Linq;
+using System.Web;
 
 namespace CSHARP_Opdracht_WebShop.Controllers
 {
@@ -140,5 +141,29 @@ namespace CSHARP_Opdracht_WebShop.Controllers
 
             return artikels;
         }
+
+        [HttpPost]
+        [Route("api/ArtikelsOrderTemp")]
+        public string ArtikelsOrderTemp(JObject jsonData)
+        {
+            //List<int> ArtikelIDs = new List<int>();
+            //dynamic json = jsonData;
+            //int id = json.id;
+
+            //HttpContext context = HttpContext.Current;
+
+            //if (context.Session["artikels"] != null)
+            //{
+            //    ArtikelIDs = (List<int>)context.Session["artikels"];
+            //}
+
+            //ArtikelIDs.Add(id);
+
+            //context.Session["artikels"] = ArtikelIDs;
+
+            return "dit is work?";
+        }
+
+        
     }
 }

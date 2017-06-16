@@ -182,6 +182,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\SessionControllerHandler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArtikelsAPIController.cs" />
     <Compile Include="Controllers\ArtikelsController.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Models\Orders.cs">
       <DependentUpon>WebShop.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SessionManager.cs" />
     <Compile Include="Models\Suppliers.cs">
       <DependentUpon>WebShop.tt</DependentUpon>
     </Compile>

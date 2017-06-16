@@ -78,10 +78,10 @@
             <!-- space -->
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) |
-            <a href="#" onclick="orderArtikel(item.ID)">Bestel</a>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+            <button onclick="ArtikelsOrderTemp('@item.ID')">Bestel</button>
         </td>
     </tr>
 }
@@ -90,14 +90,28 @@
 
 <div id="bikes"></div>
 
-<button onclick="ArtikelsByCategory('Shirts');">Click ME</button>
+<button onclick="ArtikelsOrderTemp('1');">Click ME</button>
 
 @section Scripts {
 <script type="text/javascript">
 
+    var domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+    function ArtikelsOrderTemp(id) {
+        $.ajax({
+            url: domain+'/api/ArtikelsOrderTemp',
+            type: 'POST',
+            data: { id: id },
+            succes: function (data) {
+                console.log("succes temp order?");
+                console.log(data);
+            }
+        })
+    }
+
     function FillCategoryDropDown() {
         $.ajax({
-            url: 'http://localhost:49241/api/allCategories',
+            url: domain+'/api/allCategories',
             type: 'POST',
             success: function (data) {
                 console.log(window.location.hostname);
@@ -117,7 +131,7 @@
 
     function ArtikelsOrderbyPrice() {
         $.ajax({
-            url: 'http://localhost:49241/api/ArtikelsOrderByPrice',
+            url: domain+'/api/ArtikelsOrderByPrice',
             type: 'POST',
             success: function (data) {
                 console.log(window.location.hostname);
@@ -141,7 +155,7 @@
 
     function ArtikelsByCategory(category) {
         $.ajax({
-            url: 'http://localhost:49241/api/ArtikelsByCategory',
+            url: domain+'/api/ArtikelsByCategory',
             type: 'POST',
             data: { name: category },
             success: function (data) {
@@ -166,6 +180,7 @@
 
     $(function () {
         FillCategoryDropDown();
+        console.log();
     });
 
 </script>
