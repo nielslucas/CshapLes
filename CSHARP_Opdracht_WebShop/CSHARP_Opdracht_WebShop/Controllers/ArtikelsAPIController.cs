@@ -130,6 +130,18 @@ namespace CSHARP_Opdracht_WebShop.Controllers
             dynamic json = jsonData;
             string categoryName = json.name;
 
+            if(categoryName == "All") // This is just if you want to disable the filter
+            {
+                List<Artikels> allArtikels = new List<Artikels>();
+
+                foreach(Artikels artikel in db.Artikels)
+                {
+                    allArtikels.Add(artikel);
+                }
+
+                return allArtikels;
+            }
+
             Categories category = db.Categories.Where(c =>c.Name == categoryName).First();
 
             List<Artikels> artikels = new List<Artikels>();
@@ -144,26 +156,67 @@ namespace CSHARP_Opdracht_WebShop.Controllers
 
         [HttpPost]
         [Route("api/ArtikelsOrderTemp")]
-        public string ArtikelsOrderTemp(JObject jsonData)
+        public Artikels ArtikelsOrderTemp(JObject jsonData)
         {
-            //List<int> ArtikelIDs = new List<int>();
-            //dynamic json = jsonData;
-            //int id = json.id;
+            List<Artikel_Order> Artikels = new List<Artikel_Order>();
+            dynamic json = jsonData;
+            int id = json.id;
 
-            //HttpContext context = HttpContext.Current;
+            Artikels artikel = db.Artikels.Where(a => a.ID == id).First();
+            Artikel_Order tempArtikel = new Artikel_Order();
+            tempArtikel.ArtikelID = id;
+            tempArtikel.Amount = 1;
 
-            //if (context.Session["artikels"] != null)
-            //{
-            //    ArtikelIDs = (List<int>)context.Session["artikels"];
-            //}
+            HttpContext context = HttpContext.Current;
 
-            //ArtikelIDs.Add(id);
+            if (context.Session["artikels"] != null)
+            {
+                Artikels = (List<Artikel_Order>)context.Session["artikels"];
+                
 
-            //context.Session["artikels"] = ArtikelIDs;
+                if (Artikels.Where(item => item.ArtikelID == tempArtikel.ArtikelID).Any())
+                {
+                    Artikel_Order containsArtikel = Artikels.Where(item => item.ArtikelID == tempArtikel.ArtikelID).First();
+                    if (containsArtikel != null)
+                    {
+                        containsArtikel.Amount++;
+                    }
+                }
+                else
+                {
+                    Artikels.Add(tempArtikel);
+                }
+                
+            } else
+            {
+                Artikels.Add(tempArtikel);
+            }
 
-            return "dit is work?";
+            
+
+            context.Session["artikels"] = Artikels;
+
+            return artikel;
         }
 
-        
+        [HttpPost]
+        [Route("api/ArtikelsRemoveTemp")]
+        public int ArtikelsRemoveTemp(JObject jsonData)
+        {
+            List<Artikel_Order> Artikels = new List<Artikel_Order>();
+            dynamic json = jsonData;
+            int indexNumber = json.indexNumber;
+
+            HttpContext context = HttpContext.Current;
+
+            Artikels = (List<Artikel_Order>)context.Session["artikels"];
+
+            Artikels.RemoveAt(indexNumber);
+
+            return indexNumber;
+
+        }
+
+
     }
 }

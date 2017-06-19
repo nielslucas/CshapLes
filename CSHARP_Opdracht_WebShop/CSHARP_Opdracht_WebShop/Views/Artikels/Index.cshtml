@@ -11,6 +11,17 @@
   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category
   <span class="caret"></span></button>
   <ul id="categoryDropDown" class="dropdown-menu">
+    @if (ViewBag.Categories != null)
+    {
+        <li><a href="#" onclick="ArtikelsByCategory('All')">No filter</a></li>
+
+        for (var i = 0; i < (Enumerable.Count(ViewBag.Categories)); i++)
+        {
+            <li><a href="#" onclick="ArtikelsByCategory('@ViewBag.Categories[i].Name')"> @ViewBag.Categories[i].Name</a></li>
+        }
+    }
+      
+      
   </ul>
 </div>
 
@@ -70,6 +81,12 @@
                     category = cat.Name;
                 }
             }
+            
+            @if(item.Categories.Count > 1)
+            {
+                category = category.Remove(category.Length - 2);
+            }
+           
 
             @Html.DisplayFor(modelItem => category)
 
@@ -78,9 +95,9 @@
             <!-- space -->
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |*@
             <button onclick="ArtikelsOrderTemp('@item.ID')">Bestel</button>
         </td>
     </tr>
@@ -102,9 +119,10 @@
             url: domain+'/api/ArtikelsOrderTemp',
             type: 'POST',
             data: { id: id },
-            succes: function (data) {
-                console.log("succes temp order?");
+            success: function (data) {
                 console.log(data);
+                console.log(data.Name);
+                alert(data.Name + " added to shopping cart");
             }
         })
     }
@@ -115,7 +133,7 @@
             type: 'POST',
             success: function (data) {
                 console.log(window.location.hostname);
-                console.log(data);
+                console.log();
 
                 for (var i = 0; i < data.length; i++) {
                     var bikeDiv = $('<li>');
@@ -161,7 +179,7 @@
             success: function (data) {
                 console.log(window.location.hostname);
                 console.log(data);
-                $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th></th><th></th></tr>');
+                $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th>@Html.DisplayNameFor(model => model.Categories)</th><th></th><th></th></tr>');
 
                 for (var i = 0; i < data.length; i++) {
                     var bikeDiv = $('<tr>');
@@ -169,6 +187,19 @@
                     bikeDiv.append('<td>' + data[i].Description);
                     bikeDiv.append('<td>' + data[i].Price);
                     bikeDiv.append('<td>' + data[i].Storage);
+                    //$.each(data[i].categor)
+                    var categoryDiv = $('<td>')
+
+                    for (var e = 0; e < data[i].Categories.length; e++) {
+                        categoryDiv.append(data[i].Categories[e].Name);
+                        if (data[i].Categories.length > 1 && e < (data[i].Categories.length - 1)) {
+                            categoryDiv.append(", ");
+                        }
+                            
+                        console.log(data[i].Categories[e].Name);
+                    }
+                    bikeDiv.append(categoryDiv);
+
 
                     $('#Artikels').append(bikeDiv);
                 }
@@ -179,8 +210,7 @@
     }
 
     $(function () {
-        FillCategoryDropDown();
-        console.log();
+        //FillCategoryDropDown();
     });
 
 </script>

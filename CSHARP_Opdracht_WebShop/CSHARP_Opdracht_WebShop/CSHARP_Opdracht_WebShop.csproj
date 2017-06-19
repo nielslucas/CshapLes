@@ -186,6 +186,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArtikelsAPIController.cs" />
     <Compile Include="Controllers\ArtikelsController.cs" />
+    <Compile Include="Controllers\Artikel_OrderController.cs" />
     <Compile Include="Controllers\CategoriesAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -314,6 +315,13 @@
     <Content Include="Views\Artikels\Details.cshtml" />
     <Content Include="Views\Artikels\Edit.cshtml" />
     <Content Include="Views\Artikels\Index.cshtml" />
+    <Content Include="Views\Artikel_Order\Create.cshtml" />
+    <Content Include="Views\Artikel_Order\Delete.cshtml" />
+    <Content Include="Views\Artikel_Order\Details.cshtml" />
+    <Content Include="Views\Artikel_Order\Edit.cshtml" />
+    <Content Include="Views\Artikel_Order\Index.cshtml" />
+    <Content Include="Views\Artikel_Order\ShoppingCart.cshtml" />
+    <Content Include="Views\Artikels\ShoppingCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CSHARP_Opdracht_WebShop.Models.Artikels>
+
+@{
+    ViewBag.Title = "ShoppingCart";
+}
+
+<h2>ShoppingCart</h2>
+<table class="table">
+    <tr>
+        <th>
+            Artikel name
+        </th>
+        <th>
+            Amount
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+    @if (ViewBag.Artikels != null)
+    {
+
+        for (var i = 0; i < (Enumerable.Count(ViewBag.Artikels)); i++)
+        {
+            <tr id="@i">
+                <td>@ViewBag.Artikels[i].Name</td>
+                <td>@ViewBag.Amounts[i]</td>
+                <td><button onclick="deleteOrder('@i')">Delete</button></td>
+            </tr>
+        }
+    }
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        var domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+        function deleteOrder(indexNumber) {
+            $.ajax({
+                url: domain + '/api/ArtikelsRemoveTemp',
+                type: 'POST',
+                data: { indexNumber: indexNumber },
+                success: function (data) {
+                    $("#"+data).remove();
+                }
+            })
+        }
+
+    </script>
+}

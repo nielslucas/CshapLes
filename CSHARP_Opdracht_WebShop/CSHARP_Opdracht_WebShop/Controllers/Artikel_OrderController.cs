@@ -10,109 +10,116 @@ using CSHARP_Opdracht_WebShop.Models;
 
 namespace CSHARP_Opdracht_WebShop.Controllers
 {
-    public class ArtikelsController : Controller
+    public class Artikel_OrderController : Controller
     {
         private ShopEntities db = new ShopEntities();
 
-        // GET: Artikels
+        // GET: Artikel_Order
         public ActionResult Index()
         {
-            ViewBag.Categories = db.Categories.ToList();
-
-            return View(db.Artikels.ToList());
+            var artikel_Order = db.Artikel_Order.Include(a => a.Artikels).Include(a => a.Orders);
+            return View(artikel_Order.ToList());
         }
 
-        // GET: Artikels/Details/5
+        // GET: Artikel_Order/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Artikels artikels = db.Artikels.Find(id);
-            if (artikels == null)
+            Artikel_Order artikel_Order = db.Artikel_Order.Find(id);
+            if (artikel_Order == null)
             {
                 return HttpNotFound();
             }
-            return View(artikels);
+            return View(artikel_Order);
         }
 
-        // GET: Artikels/Create
+        // GET: Artikel_Order/Create
         public ActionResult Create()
         {
+            ViewBag.ArtikelID = new SelectList(db.Artikels, "ID", "Name");
+            ViewBag.OrderID = new SelectList(db.Orders, "ID", "ID");
             return View();
         }
 
-        // POST: Artikels/Create
+        // POST: Artikel_Order/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,Price,Storage,Img")] Artikels artikels)
+        public ActionResult Create([Bind(Include = "ArtikelID,OrderID,Amount,Price")] Artikel_Order artikel_Order)
         {
             if (ModelState.IsValid)
             {
-                db.Artikels.Add(artikels);
+                db.Artikel_Order.Add(artikel_Order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(artikels);
+            ViewBag.ArtikelID = new SelectList(db.Artikels, "ID", "Name", artikel_Order.ArtikelID);
+            ViewBag.OrderID = new SelectList(db.Orders, "ID", "ID", artikel_Order.OrderID);
+            return View(artikel_Order);
         }
 
-        // GET: Artikels/Edit/5
+        // GET: Artikel_Order/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Artikels artikels = db.Artikels.Find(id);
-            if (artikels == null)
+            Artikel_Order artikel_Order = db.Artikel_Order.Find(id);
+            if (artikel_Order == null)
             {
                 return HttpNotFound();
             }
-            return View(artikels);
+            ViewBag.ArtikelID = new SelectList(db.Artikels, "ID", "Name", artikel_Order.ArtikelID);
+            ViewBag.OrderID = new SelectList(db.Orders, "ID", "ID", artikel_Order.OrderID);
+            return View(artikel_Order);
         }
 
-        // POST: Artikels/Edit/5
+        // POST: Artikel_Order/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,Price,Storage,Img")] Artikels artikels)
+        public ActionResult Edit([Bind(Include = "ArtikelID,OrderID,Amount,Price")] Artikel_Order artikel_Order)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(artikels).State = EntityState.Modified;
+                db.Entry(artikel_Order).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(artikels);
+            ViewBag.ArtikelID = new SelectList(db.Artikels, "ID", "Name", artikel_Order.ArtikelID);
+            ViewBag.OrderID = new SelectList(db.Orders, "ID", "ID", artikel_Order.OrderID);
+            return View(artikel_Order);
         }
 
-        // GET: Artikels/Delete/5
+        // GET: Artikel_Order/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Artikels artikels = db.Artikels.Find(id);
-            if (artikels == null)
+            Artikel_Order artikel_Order = db.Artikel_Order.Find(id);
+            if (artikel_Order == null)
             {
                 return HttpNotFound();
             }
-            return View(artikels);
+            return View(artikel_Order);
         }
 
-        // POST: Artikels/Delete/5
+        // POST: Artikel_Order/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Artikels artikels = db.Artikels.Find(id);
-            db.Artikels.Remove(artikels);
+            Artikel_Order artikel_Order = db.Artikel_Order.Find(id);
+            db.Artikel_Order.Remove(artikel_Order);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -128,25 +135,8 @@ namespace CSHARP_Opdracht_WebShop.Controllers
 
         public ActionResult ShoppingCart()
         {
-            List<Artikel_Order> artikelsOrder = (List<Artikel_Order>)Session["artikels"];
-            List<Artikels> artikels = new List<Artikels>();
-            List<int> Amounts = new List<int>();
-
-            if(artikelsOrder != null)
-            {
-                foreach (Artikel_Order artikelOrder in artikelsOrder)
-                {
-                    Artikels tempArtikel = db.Artikels.Where(a => a.ID == artikelOrder.ArtikelID).First();
-                    artikels.Add(tempArtikel);
-                    Amounts.Add((int)artikelOrder.Amount);
-                    
-                }
-                ViewBag.Amounts = Amounts;
-                ViewBag.Artikels = artikels;
-                
-            }
-
-            return View(db.Artikels.ToList());
+            var artikel_Order = db.Artikel_Order.Include(a => a.Artikels).Include(a => a.Orders);
+            return View(artikel_Order.ToList());
         }
     }
 }
