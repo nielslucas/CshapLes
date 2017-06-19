@@ -24,7 +24,7 @@
 
         for (var i = 0; i < (Enumerable.Count(ViewBag.Artikels)); i++)
         {
-            <tr id="@i">
+            <tr id="@i" class="items">
                 <td>@ViewBag.Artikels[i].Name</td>
                 <td>@ViewBag.Amounts[i]</td>
                 <td><button onclick="deleteOrder('@i')">Delete</button></td>
@@ -32,6 +32,9 @@
         }
     }
 </table>
+    <button id="orderButton" onclick="orderArtikels('1')">Order articles</button>
+
+
 
 @section Scripts {
     <script type="text/javascript">
@@ -45,6 +48,17 @@
                 data: { indexNumber: indexNumber },
                 success: function (data) {
                     $("#"+data).remove();
+                }
+            })
+        }
+
+        function orderArtikels(userID) {
+            $.ajax({
+                url: domain + '/api/Orders/InsertOrderWithArticles',
+                type: 'POST',
+                data: { userID: userID },
+                success: function (data) {
+                    console.log(data);
                 }
             })
         }
