@@ -126,9 +126,6 @@
             type: 'POST',
             data: { id: id },
             success: function (data) {
-                console.log(data);
-                console.log(data.Name);
-                //alert(data.Name + " added to shopping cart");
                 showToast(data.Name);
             }
         })
@@ -151,8 +148,6 @@
             url: domain+'/api/ArtikelsOrderByPrice',
             type: 'POST',
             success: function (data) {
-                console.log(window.location.hostname);
-                console.log(data);
                 $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th></th><th></th></tr>');
 
                 for(var i = 0; i < data.length; i++) {
@@ -176,26 +171,39 @@
             type: 'POST',
             data: { name: category },
             success: function (data) {
-                console.log(window.location.hostname);
-                console.log(data);
                 $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th>@Html.DisplayNameFor(model => model.Categories)</th><th></th><th></th></tr>');
 
+                
+
                 for (var i = 0; i < data.length; i++) {
+
+                    var price = String(data[i].Price);
+
+                    if (price.indexOf(".") != "-1") {
+                       price = price.replace(".",",")
+                    }
+                    else
+                    {
+                        price = price + ',00';
+                    }
+
+                    console.log(price);
+
                     var bikeDiv = $('<tr>');
                     bikeDiv.html('<td>' + data[i].Name);
                     bikeDiv.append('<td>' + data[i].Description);
-                    bikeDiv.append('<td>' + data[i].Price);
+                    bikeDiv.append('<td>' + price);
                     bikeDiv.append('<td>' + data[i].Storage);
                     //$.each(data[i].categor)
                     var categoryDiv = $('<td>')
 
                     for (var e = 0; e < data[i].Categories.length; e++) {
+
                         categoryDiv.append(data[i].Categories[e].Name);
+
                         if (data[i].Categories.length > 1 && e < (data[i].Categories.length - 1)) {
                             categoryDiv.append(", ");
                         }
-
-                        console.log(data[i].Categories[e].Name);
                     }
                     bikeDiv.append(categoryDiv);
 
