@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<CSHARP_Opdracht_WebShop.Models.Artikels>
 
 @{
-    ViewBag.Title = "Index";
-    string cats;
+    ViewBag.Title = "Articles";
 }
 
-<h2>Index</h2>
 
+<h2>Index</h2>
+<link href="@Url.Content("~/Content/Toast.css")" rel="stylesheet" type="text/css" />
 <div class="dropdown">
   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category
   <span class="caret"></span></button>
@@ -25,9 +25,13 @@
   </ul>
 </div>
 
-<p>
+<br />
+
+<p><a href="/Artikels/ShoppingCart">Shoppingcart</a></p>
+
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table id="Artikels" class="table">
     <tr>
         <th>
@@ -98,16 +102,18 @@
             @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |*@
-            <button onclick="ArtikelsOrderTemp('@item.ID')">Bestel</button>
+            <a href="#" onclick="ArtikelsOrderTemp('@item.ID')">Order</a>
         </td>
     </tr>
 }
 
 </table>
 
+<div id="snackbar"></div>
+
 <div id="bikes"></div>
 
-<button onclick="ArtikelsOrderTemp('1');">Click ME</button>
+@*<button onclick="ArtikelsOrderTemp('1');">Click ME</button>*@
 
 @section Scripts {
 <script type="text/javascript">
@@ -122,29 +128,22 @@
             success: function (data) {
                 console.log(data);
                 console.log(data.Name);
-                alert(data.Name + " added to shopping cart");
+                //alert(data.Name + " added to shopping cart");
+                showToast(data.Name);
             }
         })
     }
 
-    function FillCategoryDropDown() {
-        $.ajax({
-            url: domain+'/api/allCategories',
-            type: 'POST',
-            success: function (data) {
-                console.log(window.location.hostname);
-                console.log();
+    function showToast(itemName) {
+        $('#text').remove();
 
-                for (var i = 0; i < data.length; i++) {
-                    var bikeDiv = $('<li>');
-                    bikeDiv.html("<a href=# onclick=ArtikelsByCategory('"+data[i].Name+"');>" + data[i].Name) + "</a>";
+        var x = document.getElementById("snackbar")
 
-                    $('#categoryDropDown').append(bikeDiv);
-                }
+        var text = $('<p id=text> The item "' + itemName + '" is added to shopping cart</p>');
+        $('#snackbar').append(text);
 
-                $("#bikes").show('slow');
-            }
-        })
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
     }
 
     function ArtikelsOrderbyPrice() {
@@ -195,10 +194,12 @@
                         if (data[i].Categories.length > 1 && e < (data[i].Categories.length - 1)) {
                             categoryDiv.append(", ");
                         }
-                            
+
                         console.log(data[i].Categories[e].Name);
                     }
                     bikeDiv.append(categoryDiv);
+
+                    bikeDiv.append("<td><a href=# onclick=ArtikelsOrderTemp('"+data[i].ID +"')>Order</button></td>");
 
 
                     $('#Artikels').append(bikeDiv);
@@ -209,9 +210,12 @@
         })
     }
 
-    $(function () {
-        //FillCategoryDropDown();
-    });
+    //$(function () {
+    //    //FillCategoryDropDown();
+    //});
 
 </script>
 }
+
+
+
