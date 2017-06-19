@@ -150,11 +150,14 @@
             success: function (data) {
                 $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th></th><th></th></tr>');
 
-                for(var i = 0; i < data.length; i++) {
+                for (var i = 0; i < data.length; i++) {
+
+                    var price = toEuro(data[i].Price);
+
                     var bikeDiv = $('<tr>');
                     bikeDiv.html('<td>' + data[i].Name);
                     bikeDiv.append('<td>' + data[i].Description);
-                    bikeDiv.append('<td>' + data[i].Price);
+                    bikeDiv.append('<td>' + price);
                     bikeDiv.append('<td>' + data[i].Storage);
 
                     $('#Artikels').append(bikeDiv);
@@ -171,23 +174,15 @@
             type: 'POST',
             data: { name: category },
             success: function (data) {
-                $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th>@Html.DisplayNameFor(model => model.Categories)</th><th></th><th></th></tr>');
+                $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th onclick="ArtikelsOrderbyPrice();"> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th>@Html.DisplayNameFor(model => model.Categories)</th><th></th><th></th></tr>');
 
                 
 
                 for (var i = 0; i < data.length; i++) {
 
-                    var price = String(data[i].Price);
+                    var price = data[i].Price;
 
-                    if (price.indexOf(".") != "-1") {
-                       price = price.replace(".",",")
-                    }
-                    else
-                    {
-                        price = price + ',00';
-                    }
-
-                    console.log(price);
+                    price = toEuro(price);
 
                     var bikeDiv = $('<tr>');
                     bikeDiv.html('<td>' + data[i].Name);
@@ -216,6 +211,31 @@
                 $("#bikes").show('slow');
             }
         })
+    }
+
+    function toEuro(priceWeGet) {
+        // This function is make because ajax call does not return the value from the database
+        // It will return the value where , with a . and it removes every 0 behind the . 
+        // This function will fix this for us.
+
+        var price = String(priceWeGet); // Not sure but make sure we will handle it as a string, normal functions wont work if we dont do this
+
+        if (price.indexOf(".") != "-1") { // Check contains the .
+
+            price = price.replace(".", ",") // If so then replace the . with a ,
+
+            var split = price.split(','); // Split the string for every , (even tho there is only 1)
+
+            if (split[1].length == 1) { // If the amount of ints after the , is only 1 then add a 0
+                price = price + 0;
+            }
+
+        }
+        else { // If price has no . in it, just add ,00
+            price = price + ',00';
+        }
+
+        return price;
     }
 
     //$(function () {
