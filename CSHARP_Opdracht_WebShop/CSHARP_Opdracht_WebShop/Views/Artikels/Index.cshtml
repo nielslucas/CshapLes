@@ -148,7 +148,7 @@
             url: domain+'/api/ArtikelsOrderByPrice',
             type: 'POST',
             success: function (data) {
-                $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th></th><th></th></tr>');
+                $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th onclick="ArtikelsOrderbyPrice();"> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th>@Html.DisplayNameFor(model => model.Categories)</th><th></th><th></th></tr>');
 
                 for (var i = 0; i < data.length; i++) {
 
@@ -159,6 +159,20 @@
                     bikeDiv.append('<td>' + data[i].Description);
                     bikeDiv.append('<td>' + price);
                     bikeDiv.append('<td>' + data[i].Storage);
+
+                    var categoryDiv = $('<td>')
+
+                    for (var e = 0; e < data[i].Categories.length; e++) {
+
+                        categoryDiv.append(data[i].Categories[e].Name);
+
+                        if (data[i].Categories.length > 1 && e < (data[i].Categories.length - 1)) {
+                            categoryDiv.append(", ");
+                        }
+                    }
+                    bikeDiv.append(categoryDiv);
+
+                    bikeDiv.append("<td><a href=# onclick=ArtikelsOrderTemp('" + data[i].ID + "')>Order</button></td>");
 
                     $('#Artikels').append(bikeDiv);
                 }
@@ -176,7 +190,7 @@
             success: function (data) {
                 $("#Artikels").html('<tr> <th> @Html.DisplayNameFor(model => model.Name) </th><th> @Html.DisplayNameFor(model => model.Description) </th> <th onclick="ArtikelsOrderbyPrice();"> @Html.DisplayNameFor(model => model.Price)</th><th>@Html.DisplayNameFor(model => model.Storage)</th><th>@Html.DisplayNameFor(model => model.Categories)</th><th></th><th></th></tr>');
 
-                
+
 
                 for (var i = 0; i < data.length; i++) {
 
@@ -215,7 +229,7 @@
 
     function toEuro(priceWeGet) {
         // This function is make because ajax call does not return the value from the database
-        // It will return the value where , with a . and it removes every 0 behind the . 
+        // It will return the value where , with a . and it removes every 0 behind the .
         // This function will fix this for us.
 
         var price = String(priceWeGet); // Not sure but make sure we will handle it as a string, normal functions wont work if we dont do this
