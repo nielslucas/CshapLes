@@ -218,5 +218,12 @@ namespace CSHARP_Opdracht_WebShop.Controllers
         }
 
 
+        [HttpPost]
+        [Route("api/test")]
+        public JObject test(JObject jsonData)
+        {
+            return jsonData;
+        }
+
     }
 }

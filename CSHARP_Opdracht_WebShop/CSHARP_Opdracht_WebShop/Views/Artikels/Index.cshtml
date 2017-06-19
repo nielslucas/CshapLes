@@ -113,12 +113,22 @@
 
 <div id="bikes"></div>
 
-@*<button onclick="ArtikelsOrderTemp('1');">Click ME</button>*@
+<button onclick="test();">Click ME</button>
 
 @section Scripts {
 <script type="text/javascript">
 
     var domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+    function test() {
+        $.ajax({
+            url: domain + '/api/ArtikelsAPI',
+            type: 'GET',
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    }
 
     function ArtikelsOrderTemp(id) {
         $.ajax({

@@ -32,8 +32,9 @@
         }
     }
 </table>
+@if (ViewBag.Artikels != null) {
     <button id="orderButton" onclick="orderArtikels('1')">Order articles</button>
-
+}
 
 
 @section Scripts {
@@ -58,7 +59,8 @@
                 type: 'POST',
                 data: { userID: userID },
                 success: function (data) {
-                    console.log(data);
+                    $(".items").remove();
+                    $("#orderButton").remove();
                 }
             })
         }
